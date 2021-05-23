@@ -1,10 +1,12 @@
 package com.empresa.controller;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -82,6 +84,23 @@ public class AlumnoController {
 			System.out.println("elimina  no existe");
 			return ResponseEntity.badRequest().build();
 		}
+	}
+	
+	@GetMapping(value = "/buscarPorDNI/{dni}")
+
+	public ResponseEntity<List<Alumno>> buscar(@PathVariable String dni) {
+
+		System.out.println("Dni: " + dni);
+
+		List<Alumno> lstAlumno = service.listaPorDni(dni);
+
+		if (CollectionUtils.isEmpty(lstAlumno)) {
+			return ResponseEntity.ok(lstAlumno);
+		} else {
+			System.out.println(">>>> buscar por dni - no existen alumnos con ese dni : " + dni);
+			return ResponseEntity.badRequest().build();
+		}
+
 	}
 	
 }
