@@ -94,7 +94,7 @@ public class AlumnoController {
 
 		List<Alumno> lstAlumno = service.listaPorDni(dni);
 
-		if (CollectionUtils.isEmpty(lstAlumno)) {
+		if (!CollectionUtils.isEmpty(lstAlumno)) {
 			return ResponseEntity.ok(lstAlumno);
 		} else {
 			System.out.println(">>>> buscar por dni - no existen alumnos con ese dni : " + dni);
